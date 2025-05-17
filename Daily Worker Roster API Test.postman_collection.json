@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "94819329-91d0-4abe-b0b6-6d3203d0fd0b",
+		"name": "Daily Worker Roster API Test",
+		"description": "Postman collection to test all endpoints of the Daily Worker Roster Management System.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15136612",
+		"_collection_link": "https://grey-zodiac-889086.postman.co/workspace/PVP~274f017d-5fce-4027-97cc-885869a89e18/collection/15136612-94819329-91d0-4abe-b0b6-6d3203d0fd0b?action=share&source=collection_link&creator=15136612"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login as Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"user_id\": 99, \"user_type\": \"admin\"}"
+						},
+						"url": {
+							"raw": "{{port}}/auth/login",
+							"host": [
+								"{{port}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login as Worker",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"user_id\": 1, \"user_type\": \"worker\"}"
+						},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Create Shift",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"date\": \"2025-05-18\", \"start_time\": \"08:00\", \"end_time\": \"12:00\", \"role\": \"Cashier\", \"location\": \"Jakarta\"}"
+						},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Shifts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{port}}/admin/shifts/:id",
+							"host": [
+								"{{port}}"
+							],
+							"path": [
+								"admin",
+								"shifts",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve Request",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{port}}/admin/requests/:id/approve",
+							"host": [
+								"{{port}}"
+							],
+							"path": [
+								"admin",
+								"requests",
+								":id",
+								"approve"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject Request",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo5OSwidXNlcl90eXBlIjoiYWRtaW4iLCJleHAiOjE3NDc1NDYyNTB9.YwaXuUP9zqWaLysft7ZWrwl9WYAosGxfEiGhaU3sgQ0"
+							}
+						],
+						"url": {
+							"raw": "localhost:8089/admin/requests/2/reject",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"admin",
+								"requests",
+								"2",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Assignments by Date",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{port}}/admin/assignments?date=2025-05-18",
+							"host": [
+								"{{port}}"
+							],
+							"path": [
+								"admin",
+								"assignments"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2025-05-18"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Assignments by Worker",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo5OSwidXNlcl90eXBlIjoiYWRtaW4iLCJleHAiOjE3NDc1NDYyNTB9.YwaXuUP9zqWaLysft7ZWrwl9WYAosGxfEiGhaU3sgQ0"
+							}
+						],
+						"url": {
+							"raw": "localhost:8089/admin/assignments/worker/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"admin",
+								"assignments",
+								"worker",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reassign Shift",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo5OSwidXNlcl90eXBlIjoiYWRtaW4iLCJleHAiOjE3NDc1NDYyNTB9.YwaXuUP9zqWaLysft7ZWrwl9WYAosGxfEiGhaU3sgQ0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"worker_id\": 1}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8089/admin/assignments/:shift_id/reassign",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"admin",
+								"assignments",
+								":shift_id",
+								"reassign"
+							],
+							"variable": [
+								{
+									"key": "shift_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Worker",
+			"item": [
+				{
+					"name": "View Available Shifts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{port}}/worker/shifts/available",
+							"host": [
+								"{{port}}"
+							],
+							"path": [
+								"worker",
+								"shifts",
+								"available"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"andi\",\n  \"email\": \"andi@example.com\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{port}}/worker/register",
+							"host": [
+								"{{port}}"
+							],
+							"path": [
+								"worker",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Shift",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{port}}/worker/shifts/:id/request",
+							"host": [
+								"{{port}}"
+							],
+							"path": [
+								"worker",
+								"shifts",
+								":id",
+								"request"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Requests",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Assignments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "port",
+			"value": "localhost:8089",
+			"type": "string"
+		},
+		{
+			"key": "Authorization",
+			"value": "Bearer ",
+			"type": "string"
+		}
+	]
+}
